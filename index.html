@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Viody &amp; Roge · Nuestra boda</title>
+<meta name="description" content="Con la bendición de Dios te invitamos a celebrar nuestra boda. Sábado 23 de enero de 2027. Toca para abrir tu invitación.">
+<meta property="og:title" content="Viody & Roge · Nuestra boda">
+<meta property="og:description" content="Con la bendición de Dios te invitamos a celebrar nuestra boda. Sábado 23 de enero de 2027.">
+<meta property="og:image" content="https://jadeinkinvitacionesdigitales-source.github.io/boda-viody-roge/img/foto8.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fbf6f1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/ramo-esquina.webp">
+<style>
+:root{
+  --peach:#f2b99a;
+  --peach-soft:#fbe3d4;
+  --peach-deep:#c9704c;
+  --white:#fffdfb;
+  --cream:#fbf6f1;
+  --sage:#7a9576;
+  --sage-deep:#4b6649;
+  --sky:#a9c9e6;
+  --sky-deep:#5d8ab5;
+  --ink:#33332f;
+  --gold:#b88a4a;
+  --f-script:'Pinyon Script',cursive;
+  --f-body:'Cormorant Garamond',Georgia,serif;
+  --f-caps:'Cinzel',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);color:var(--ink);
+  font-family:var(--f-body);font-size:24px;line-height:1.5;font-weight:500;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body.locked{overflow:hidden;height:100vh}
+img{max-width:100%;display:block}
+.deco{pointer-events:none;user-select:none;position:absolute;z-index:1;height:auto}
+
+/* ---------- PORTADA: SOBRE ---------- */
+#portada{
+  position:fixed;inset:0;z-index:50;
+  background:#7d9478;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  transition:opacity .9s ease, visibility 0s linear .9s;
+}
+#portada.abierta{opacity:0;visibility:hidden}
+.sobre-foto{
+  position:relative;container-type:inline-size;
+  height:min(100dvh, calc(100vw * 16 / 9));aspect-ratio:9/16;flex:none;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+}
+/* En celulares (pantalla vertical) el sobre cubre toda la pantalla */
+@media (max-aspect-ratio: 4/5){
+  .sobre-foto{height:auto;width:max(100vw, calc(100dvh * 9 / 16))}
+}
+.sobre-foto video,.sobre-foto .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.sobre-foto .poster{z-index:2;transition:opacity .5s ease .7s}
+/* iniciales grabadas en el sello de cera (centro del sello: 50% / 49.45%) */
+.iniciales{
+  position:absolute;left:50%;top:49.45%;transform:translate(-50%,-50%);z-index:3;
+  width:22cqw;height:22cqw;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f-script);font-size:10cqw;line-height:1;color:#c2a77f;white-space:nowrap;padding-top:1.2cqw;
+  text-shadow:-1px -1px 1px rgba(110,85,50,.7), 1px 1px 1px rgba(255,248,232,.9);
+  transition:opacity .5s ease .7s;
+}
+.portada-txt{position:absolute;left:0;right:0;z-index:3;text-align:center;color:#f7f0e1;
+  text-shadow:0 1px 2px rgba(35,45,28,.75),0 0 12px rgba(35,45,28,.45);transition:opacity .4s ease}
+#portada.reproduciendo .portada-txt{opacity:0;animation:none}
+#portada.reproduciendo .poster,#portada.reproduciendo .iniciales{opacity:0}
+.portada-txt.arriba{top:14%}
+.portada-txt.arriba .sub-p{font-family:var(--f-caps);font-size:4.6cqw;letter-spacing:.25em}
+.portada-txt.nombre{top:63%;padding:0 6cqw}
+.portada-txt.nombre .fam{font-family:var(--f-script);font-size:14cqw;line-height:1.1}
+.portada-txt.toca{top:84%;font-size:5.6cqw;font-weight:600;letter-spacing:.04em;animation:latido 1.8s ease-in-out infinite}
+@keyframes latido{0%,100%{opacity:.75}50%{opacity:1}}
+
+/* ---------- ESTRUCTURA ---------- */
+main{max-width:560px;margin:0 auto;background:var(--white);box-shadow:0 0 50px rgba(160,120,90,.08);position:relative;overflow:hidden}
+section{padding:64px 26px;text-align:center;position:relative}
+.titulo{font-family:var(--f-script);font-size:clamp(50px,13.5vw,62px);color:var(--peach-deep);line-height:1.15;font-weight:400;position:relative;z-index:2}
+.sub{font-family:var(--f-caps);letter-spacing:.18em;font-size:19px;color:var(--sage-deep);text-transform:uppercase;font-weight:500}
+p.texto{font-size:25px;color:var(--ink);max-width:440px;margin:0 auto;position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* FOTO SUELTA */
+.foto{padding:10px 22px 30px}
+.foto img{width:100%;border-radius:200px 200px 18px 18px;box-shadow:0 14px 30px rgba(80,60,40,.15)}
+.foto.ancha img{border-radius:18px;aspect-ratio:4/5;object-fit:cover}
+.foto .deco{width:150px}
+
+/* HERO */
+#inicio{padding:0 0 50px}
+.hero-foto{position:relative;height:min(118vw,640px);overflow:hidden}
+.hero-foto img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.hero-foto:after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(to bottom,rgba(255,253,251,0),rgba(255,253,251,.85) 65%,var(--white))}
+.hero-texto{margin-top:-70px;position:relative;z-index:2;padding:0 20px}
+.nombres{font-family:var(--f-script);font-size:clamp(54px,15.5vw,86px);color:var(--peach-deep);line-height:1.15;font-weight:400;white-space:nowrap}
+.nombres .y{font-size:.55em;color:var(--sage);margin:0 6px;vertical-align:.18em}
+.fecha-hero{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:22px;font-family:var(--f-caps);color:var(--ink)}
+.fecha-hero .lado{font-size:18px;letter-spacing:.18em;border-top:1px solid var(--peach);border-bottom:1px solid var(--peach);padding:6px 4px;min-width:100px}
+.fecha-hero .dia{font-family:var(--f-body);font-size:66px;line-height:1;color:var(--sage-deep);font-weight:600}
+.fecha-hero .anio{display:block;margin-top:4px;letter-spacing:.4em;font-size:19px;color:var(--sage-deep)}
+.rama-hero{width:230px;margin:26px auto 0;opacity:.95}
+
+/* FRASE */
+#frase{padding-top:20px}
+#frase .ramo-h{position:relative;width:min(88%,380px);margin:0 auto 18px}
+#frase blockquote{font-style:italic;font-size:clamp(27px,7.2vw,32px);line-height:1.45;color:var(--ink);max-width:440px;margin:0 auto}
+#frase .firma{margin-top:18px;font-family:var(--f-script);font-size:44px;color:var(--peach-deep)}
+
+/* PUESTOS RESERVADOS */
+#reserva{padding:40px 26px}
+.pase{position:relative;max-width:420px;margin:0 auto;padding:40px 22px;border-radius:24px;background:var(--white);border:2px solid var(--peach-soft);box-shadow:0 0 0 8px var(--cream),0 0 0 9px #ecdccd}
+.pase .deco{width:120px;left:-34px;top:-52px}
+.pase .deco.izq{right:auto;left:-30px;top:auto;bottom:-40px;width:100px;transform:rotate(200deg)}
+.pase .fam2{font-family:var(--f-script);font-size:clamp(46px,13vw,60px);color:var(--peach-deep);line-height:1.15;position:relative;z-index:2}
+.pase .reserva{font-style:italic;font-size:27px;color:var(--sage-deep);margin-top:8px}
+.pase .puestos{font-family:var(--f-caps);font-size:25px;letter-spacing:.12em;color:var(--ink);margin-top:6px}
+.pase .puestos b{font-family:var(--f-body);font-size:60px;font-weight:600;color:var(--peach-deep);vertical-align:-6px}
+
+/* BAILE (las dos fotos juntas) */
+#baile{padding:30px 14px 50px}
+#baile .hoja{width:130px;left:-20px;top:-30px;transform:rotate(130deg);opacity:.9}
+.pareja{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:2}
+.pareja img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:16px;box-shadow:0 10px 24px rgba(80,60,40,.14)}
+.pareja img:first-child{object-position:55% 50%}
+.pareja img:last-child{object-position:45% 50%}
+
+/* EVENTOS */
+.evento{background:var(--cream);border-radius:200px 200px 22px 22px;padding:60px 22px 36px;margin:0 auto;max-width:430px;position:relative;border:1px solid #efe1d4}
+.evento .deco{width:140px;left:-36px;top:-44px}
+.evento .icono{width:72px;height:72px;margin:0 auto 6px;position:relative;z-index:2}
+.evento h3{font-family:var(--f-script);font-weight:400;font-size:52px;color:var(--peach-deep);line-height:1.1}
+.evento .hora{font-family:var(--f-caps);font-size:25px;letter-spacing:.1em;color:var(--sage-deep);margin:12px 0 14px;font-weight:500}
+.evento .lugar{font-size:28px;font-weight:700;line-height:1.3}
+.evento .dir{font-size:24px;font-weight:600;color:#3d3b36;margin-top:6px}
+.btn{display:inline-block;margin-top:24px;padding:14px 32px;border-radius:40px;border:0;cursor:pointer;background:var(--sage-deep);color:#fff;text-decoration:none;font-family:var(--f-caps);font-size:18px;letter-spacing:.12em;box-shadow:0 6px 16px rgba(75,102,73,.28);transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px);background:#3d553b}
+.btn.peach{background:var(--peach-deep);box-shadow:0 6px 16px rgba(201,112,76,.3)}
+.btn.peach:hover{background:#b5603f}
+
+/* VESTIMENTA */
+#vestimenta .ramo-v{width:72px;right:-8px;top:24px;opacity:.95}
+#vestimenta .pareja-v{width:min(52vw,210px);margin:22px auto 6px;position:relative;z-index:2}
+#vestimenta .paleta{display:flex;justify-content:center;gap:12px;margin:18px 0 8px;position:relative;z-index:2}
+.paleta i{width:42px;height:42px;border-radius:50%;box-shadow:inset 0 0 0 3px rgba(255,255,255,.7),0 3px 8px rgba(0,0,0,.1)}
+.aviso-blanco{display:block;margin:22px auto 0;padding:14px 22px;border-radius:24px;background:var(--cream);font-size:24px;text-align:center;max-width:400px;position:relative;z-index:2}
+
+/* OBSEQUIOS */
+#obsequios{background:linear-gradient(180deg,var(--white),#eef4f9 55%,var(--white))}
+#obsequios .sobres{width:min(56vw,230px);margin:0 auto 4px;position:relative;z-index:2}
+#obsequios .rama{width:130px;left:-34px;bottom:-26px;opacity:.9}
+
+/* RSVP */
+#rsvp .tarjeta{position:relative;background:var(--white);border:1px solid #efe1d3;border-radius:22px;padding:34px 22px;max-width:430px;margin:26px auto 0;box-shadow:0 10px 30px rgba(180,130,100,.1);text-align:left}
+#rsvp{padding-bottom:90px}
+#rsvp label{display:block;font-family:var(--f-body);font-size:25px;font-weight:700;color:var(--sage-deep);margin:26px 0 8px;text-align:center}
+#rsvp input,#rsvp select,#rsvp textarea{width:100%;font-family:var(--f-body);font-size:24px;font-weight:500;color:var(--ink);padding:12px 14px;border:1px solid #e0cdbd;border-radius:12px;background:var(--cream);outline:none}
+#rsvp input:focus,#rsvp select:focus,#rsvp textarea:focus{border-color:var(--peach-deep);background:#fff}
+#rsvp .btn{width:100%;margin-top:26px;font-size:19px}
+#rsvp .pregunta{text-align:center;font-size:30px;font-weight:700;color:var(--ink);margin-bottom:16px}
+#rsvp .opciones{display:grid;gap:14px}
+#rsvp .opcion{width:100%;padding:18px 14px;border-radius:16px;border:2px solid #d9c6b4;background:var(--cream);
+  font-family:var(--f-body);font-size:27px;font-weight:700;color:var(--ink);cursor:pointer;transition:all .2s}
+#rsvp .opcion[aria-checked="true"][data-v="si"]{background:var(--sage-deep);border-color:var(--sage-deep);color:#fff}
+#rsvp .opcion[aria-checked="true"][data-v="no"]{background:#8a7f76;border-color:#8a7f76;color:#fff}
+#rsvp .aviso-elegir{display:none;text-align:center;color:#b5462a;font-size:22px;font-weight:700;margin-top:10px}
+#rsvp .aviso-elegir.on{display:block}
+#rsvp .gracias{text-align:center}
+#rsvp .gracias-titulo{font-family:var(--f-script);font-size:64px;color:var(--peach-deep);line-height:1.1}
+#rsvp .gracias p{font-size:26px;font-weight:600;margin-top:8px}
+
+/* PIE */
+footer{padding:40px 26px 90px;text-align:center;background:var(--cream)}
+footer .ramo-h{width:min(90%,380px);margin:0 auto 10px}
+footer .nombres{font-size:clamp(50px,14vw,68px)}
+footer p{font-family:var(--f-caps);letter-spacing:.24em;font-size:18px;color:var(--sage-deep);margin-top:10px}
+
+/* MUSICA */
+#musica{position:fixed;right:16px;bottom:18px;z-index:40;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;background:var(--white);box-shadow:0 6px 18px rgba(0,0,0,.15);display:none;align-items:center;justify-content:center}
+#musica.on{display:flex}
+#musica svg{width:24px;height:24px;fill:var(--peach-deep)}
+#musica.sonando svg{animation:gira 4s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .toca{animation:none}
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- ====== PORTADA: SOBRE ====== -->
+<div id="portada" role="dialog" aria-label="Abrir invitación">
+  <div class="sobre-foto" id="abrir" tabindex="0" role="button" aria-label="Toca para abrir la invitación">
+    <video id="vSobre" src="sobre-apertura.mp4" playsinline preload="auto" aria-hidden="true"></video>
+    <img class="poster" src="img/sobre-poster.jpg" alt="">
+    <div class="iniciales" aria-hidden="true">V&amp;R</div>
+    <div class="portada-txt arriba"><div class="sub-p">Nuestra boda</div></div>
+    <div class="portada-txt nombre"><div class="fam" id="famNombre">Querida familia</div></div>
+    <div class="portada-txt toca">Toca AQUÍ para abrir</div>
+  </div>
+</div>
+
+<button id="musica" aria-label="Pausar o reproducir música">
+  <svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+</button>
+<!-- Coloca la canción elegida como "musica.mp3" en esta misma carpeta -->
+<audio id="audio" src="musica.mp3" loop preload="auto"></audio>
+
+<main>
+  <!-- ====== INICIO (foto 1) ====== -->
+  <section id="inicio">
+    <div class="hero-foto"><img src="img/foto8.jpg" alt="Viody y Roge"></div>
+    <div class="hero-texto">
+      <div class="sub reveal">¡Nos casamos!</div>
+      <h1 class="nombres reveal">Viody <span class="y">&amp;</span> Roge</h1>
+      <div class="fecha-hero reveal">
+        <div class="lado">SÁBADO</div>
+        <div><div class="dia">23</div><span class="anio">2027</span></div>
+        <div class="lado">ENERO</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FRASE ====== -->
+  <section id="frase">
+    <img class="ramo-h reveal" src="img/ramo-horizontal.webp" alt="" aria-hidden="true">
+    <blockquote class="reveal">“Dios nos unió en el momento perfecto. Hoy decidimos caminar juntos, de Su mano y con Su bendición, para toda la vida.”</blockquote>
+    <div class="firma reveal">Viody &amp; Roge</div>
+  </section>
+
+  <!-- ====== FOTO 2: manos ====== -->
+  <div class="foto reveal" style="position:relative">
+    <img src="img/foto9.jpg" alt="Viody y Roge tomados de la mano" loading="lazy">
+  </div>
+
+  <!-- ====== PUESTOS RESERVADOS ====== -->
+  <section id="reserva">
+    <div class="pase reveal">
+      <img class="deco" src="img/ramo-esquina.webp" alt="">
+      <div class="fam2" id="famNombre2">Querida familia</div>
+      <div class="reserva">Hemos reservado para ti:</div>
+      <div class="puestos"><b id="numPuestos">2</b> <span id="palabraPuestos">puestos</span></div>
+    </div>
+  </section>
+
+  <!-- ====== FOTOS 3 y 4: el baile (juntas) ====== -->
+  <section id="baile">
+    <div class="pareja">
+      <img class="reveal" src="img/foto7.jpg" alt="Roge haciendo girar a Viody" loading="lazy">
+      <img class="reveal" src="img/foto6.jpg" alt="Viody y Roge riendo mientras bailan" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ====== CEREMONIA ====== -->
+  <section style="padding-top:30px;padding-bottom:30px">
+    <div class="evento reveal">
+      <img class="deco" src="img/ramo-esquina.webp" alt="">
+      <svg class="icono" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#4b6649" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6v10M27 11h10"/><path d="M14 58V30l18-12 18 12v28"/><path d="M26 58V44a6 6 0 0 1 12 0v14"/><path d="M8 58h48"/><circle cx="32" cy="31" r="4" stroke="#c9704c"/>
+      </svg>
+      <h3>Ceremonia religiosa</h3>
+      <div class="hora">10:30 A.M.</div>
+      <div class="lugar">Capilla de Fátima</div>
+      <div class="dir">Santuario Nacional<br>Ave. Samuel Lewis, sector Obarrio</div>
+      <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Santuario+Nacional+del+Coraz%C3%B3n+de+Mar%C3%ADa+Avenida+Samuel+Lewis+Obarrio+Panam%C3%A1">Cómo llegar</a>
+    </div>
+  </section>
+
+  <!-- ====== FOTO 5: beso ====== -->
+  <div class="foto reveal">
+    <img src="img/foto11.jpg" alt="Viody besando a Roge en la mejilla" loading="lazy">
+  </div>
+
+  <!-- ====== RECEPCION ====== -->
+  <section style="padding-top:30px;padding-bottom:40px">
+    <div class="evento reveal">
+      <img class="deco" src="img/ramo-esquina.webp" alt="">
+      <svg class="icono" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#4b6649" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8h12l-1 14a5 5 0 0 1-10 0z"/><path d="M24 27v22M18 49h12"/>
+        <path d="M34 8h12l-1 14a5 5 0 0 1-10 0z"/><path d="M40 27v22M34 49h12"/>
+        <path d="M30 6l4-3M30 12l5-1" stroke="#c9704c"/>
+      </svg>
+      <h3>Brindis y recepción</h3>
+      <div class="hora">12:00 M. – 6:00 P.M.</div>
+      <div class="lugar">Hotel Hilton Panamá<br>Salón Infinity</div>
+      <div class="dir">Ave. Balboa, esquina con<br>Ave. Aquilino de la Guardia</div>
+      <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Hilton+Panama+Avenida+Balboa+Aquilino+de+la+Guardia">Cómo llegar</a>
+    </div>
+  </section>
+
+  <!-- ====== VESTIMENTA ====== -->
+  <section id="vestimenta">
+    <img class="deco ramo-v" src="img/ramo-vertical.webp" alt="">
+    <div class="titulo reveal">Código de vestimenta</div>
+    <div class="sub reveal" style="margin-top:10px">Semi formal</div>
+    <img class="pareja-v reveal" src="img/pareja-vestimenta.webp" alt="Ilustración de vestimenta semi formal">
+    <div class="paleta reveal" aria-label="Colores de la boda">
+      <i style="background:#f2b99a"></i><i style="background:#a9c9e6"></i><i style="background:#8fa58a"></i><i style="background:#fbe3d4"></i>
+    </div>
+    <div class="aviso-blanco reveal">Con cariño, reservamos el color <b>blanco</b> para la novia</div>
+  </section>
+
+  <!-- ====== FOTO 6: escalera ====== -->
+  <div class="foto reveal">
+    <img src="img/foto10.jpg" alt="Viody y Roge en la escalera" loading="lazy">
+  </div>
+
+  <!-- ====== OBSEQUIOS ====== -->
+  <section id="obsequios">
+    <img class="deco rama" src="img/rama-dorada.webp" alt="">
+    <img class="sobres reveal" src="img/sobres.webp" alt="" aria-hidden="true">
+    <div class="titulo reveal">Obsequios</div>
+    <p class="texto reveal" style="margin-top:14px">Tu presencia es nuestro mejor regalo. Si deseas tener un detalle con nosotros, lo recibiremos con mucho cariño en nuestra <b>lluvia de sobres</b>.</p>
+  </section>
+
+  <!-- ====== RSVP ====== -->
+  <section id="rsvp">
+    <div class="titulo reveal">Confirmación</div>
+    <p class="texto reveal">Por favor confirma tu asistencia</p>
+    <form class="tarjeta reveal" id="formRsvp">
+      <div class="pregunta">¿Podrás asistir?</div>
+      <div class="opciones" role="radiogroup" aria-label="¿Podrás asistir?">
+        <button type="button" class="opcion" data-v="si" role="radio" aria-checked="false">✓&nbsp; Sí, asistiré</button>
+        <button type="button" class="opcion" data-v="no" role="radio" aria-checked="false">✗&nbsp; No podré asistir</button>
+      </div>
+      <div class="aviso-elegir" id="avisoElegir">Por favor toca “Sí” o “No”</div>
+      <label for="rMensaje">Mensaje para los novios <span style="font-weight:500">(si deseas)</span></label>
+      <textarea id="rMensaje" rows="3" placeholder="Escribe aquí tu mensaje"></textarea>
+      <button class="btn peach" type="submit" id="btnConfirmar">Confirmar</button>
+      <p class="aviso-elegir" id="errorEnvio">No se pudo enviar. Revisa tu internet e inténtalo otra vez.</p>
+    </form>
+    <div class="tarjeta gracias" id="gracias" hidden>
+      <div class="gracias-titulo">¡Gracias!</div>
+      <p id="graciasTexto">Recibimos tu respuesta.</p>
+    </div>
+  </section>
+
+  <footer>
+    <img class="ramo-h" src="img/ramo-horizontal.webp" alt="" aria-hidden="true">
+    <div class="nombres">Viody <span class="y">&amp;</span> Roge</div>
+    <p>23 · ENERO · 2027</p>
+  </footer>
+</main>
+
+<script src="config.js"></script>
+<script>
+/* ===== Personalización por enlace =====
+   Ejemplo: index.html?f=Familia%20Pérez&p=4
+   f = nombre de la familia / invitado,  p = número de puestos */
+const params = new URLSearchParams(location.search);
+const fam = (params.get('f') || '').trim();
+const invId = (params.get('i') || '').trim();
+const puestos = Math.max(1, parseInt(params.get('p'), 10) || 2);
+if (fam) { famNombre.textContent = fam; famNombre2.textContent = fam; }
+numPuestos.textContent = puestos;
+palabraPuestos.textContent = puestos === 1 ? 'puesto' : 'puestos';
+
+/* ===== Abrir sobre + música ===== */
+const portada = document.getElementById('portada');
+const audio = document.getElementById('audio');
+const btnMusica = document.getElementById('musica');
+let audioFalla = !!audio.error;
+audio.addEventListener('error', () => { audioFalla = true; btnMusica.classList.remove('on'); });
+const vSobre = document.getElementById('vSobre');
+let mostrado = false;
+function mostrarInvitacion(){
+  if (mostrado) return; mostrado = true;
+  portada.classList.add('abierta');
+  document.body.classList.remove('locked');
+  window.scrollTo(0,0);
+  if (!audioFalla) {
+    btnMusica.classList.add('on');
+    audio.play().then(()=>btnMusica.classList.add('sonando')).catch(()=>{});
+  }
+  setTimeout(revisar, 600);
+}
+function abrir(){
+  if (portada.classList.contains('reproduciendo')) return;
+  portada.classList.add('reproduciendo');
+  /* el video del sobre se abre; al terminar aparece la invitación */
+  vSobre.addEventListener('ended', mostrarInvitacion, {once:true});
+  vSobre.play().catch(mostrarInvitacion);
+  setTimeout(mostrarInvitacion, 7000); /* respaldo por si el video no carga */
+}
+const sobre = document.getElementById('abrir');
+sobre.addEventListener('click', abrir);
+sobre.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); abrir(); } });
+btnMusica.addEventListener('click', () => {
+  if (audio.paused) audio.play().then(()=>btnMusica.classList.add('sonando')).catch(()=>{});
+  else { audio.pause(); btnMusica.classList.remove('sonando'); }
+});
+
+/* ===== Animaciones al hacer scroll ===== */
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+}), {threshold:.12}) : null;
+function revisar(){ document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('visible')); }
+
+/* ===== RSVP por WhatsApp ===== */
+let respuesta = '';
+document.querySelectorAll('.opcion').forEach(btn => btn.addEventListener('click', () => {
+  respuesta = btn.dataset.v;
+  document.querySelectorAll('.opcion').forEach(o => o.setAttribute('aria-checked', o === btn ? 'true' : 'false'));
+  avisoElegir.classList.remove('on');
+}));
+formRsvp.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!respuesta) { avisoElegir.classList.add('on'); return; }
+  errorEnvio.classList.remove('on');
+  const datos = { id: invId, familia: fam || 'Invitado', puestos, asistira: respuesta, mensaje: rMensaje.value.trim() };
+  btnConfirmar.disabled = true; btnConfirmar.textContent = 'Enviando…';
+  try {
+    const API = (window.CONFIG && CONFIG.apiUrl) || '';
+    if (API) {
+      // Google Apps Script no permite leer la respuesta (CORS), por eso "no-cors"
+      await fetch(API, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(datos) });
+    } else {
+      // MODO DE PRUEBA: se guarda en este navegador para verlo en panel.html
+      const k = 'boda-vr-respuestas';
+      const lista = JSON.parse(localStorage.getItem(k) || '[]');
+      lista.push({ fecha: new Date().toISOString(), ...datos, asistira: respuesta === 'si' ? 'Sí' : 'No' });
+      localStorage.setItem(k, JSON.stringify(lista));
+    }
+    formRsvp.hidden = true;
+    graciasTexto.textContent = respuesta === 'si'
+      ? '¡Qué alegría! Los esperamos el sábado 23 de enero.'
+      : 'Lamentamos que no puedan acompañarnos. Gracias por avisarnos.';
+    gracias.hidden = false;
+  } catch (err) {
+    errorEnvio.classList.add('on');
+  }
+  btnConfirmar.disabled = false; btnConfirmar.textContent = 'Confirmar';
+});
+</script>
+</body>
+</html>
