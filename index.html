@@ -219,7 +219,7 @@ footer p{font-family:var(--f-caps);letter-spacing:.24em;font-size:18px;color:var
   <svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
 </button>
 <!-- Coloca la canción elegida como "musica.mp3" en esta misma carpeta -->
-<audio id="audio" src="musica.mp3" loop preload="auto"></audio>
+<audio id="audio" src="musica.mp3?v=2" loop preload="auto"></audio>
 
 <main>
   <!-- ====== INICIO (foto 1) ====== -->
@@ -400,13 +400,16 @@ function mostrarInvitacion(){
   window.scrollTo(0,0);
   if (!audioFalla) {
     btnMusica.classList.add('on');
-    audio.play().then(()=>btnMusica.classList.add('sonando')).catch(()=>{});
+    if (audio.paused) audio.play().then(()=>btnMusica.classList.add('sonando')).catch(()=>{});
   }
   setTimeout(revisar, 600);
 }
 function abrir(){
   if (portada.classList.contains('reproduciendo')) return;
   portada.classList.add('reproduciendo');
+  /* la canción empieza en el mismo toque (así también suena en iPhone) */
+  if (!audioFalla) audio.play().then(()=>btnMusica.classList.add('sonando')).catch(()=>{});
+  vSobre.muted = true;
   /* el video del sobre se abre; al terminar aparece la invitación */
   vSobre.addEventListener('ended', mostrarInvitacion, {once:true});
   vSobre.play().catch(mostrarInvitacion);
