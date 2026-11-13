@@ -153,7 +153,8 @@ p.texto{font-size:25px;color:var(--ink);max-width:440px;margin:0 auto;position:r
 
 /* VESTIMENTA */
 #vestimenta .ramo-v{width:72px;right:-8px;top:24px;opacity:.95}
-#vestimenta .pareja-v{width:min(52vw,210px);margin:22px auto 6px;position:relative;z-index:2}
+#vestimenta .parejas-v{display:flex;justify-content:center;align-items:flex-end;gap:min(4vw,18px);margin:22px auto 6px;position:relative;z-index:2}
+#vestimenta .parejas-v img{height:min(66vw,280px);width:auto}
 #vestimenta .paleta{display:flex;justify-content:center;gap:12px;margin:18px 0 8px;position:relative;z-index:2}
 .paleta i{width:42px;height:42px;border-radius:50%;box-shadow:inset 0 0 0 3px rgba(255,255,255,.7),0 3px 8px rgba(0,0,0,.1)}
 .aviso-blanco{display:block;margin:22px auto 0;padding:14px 22px;border-radius:24px;background:var(--cream);font-size:24px;text-align:center;max-width:400px;position:relative;z-index:2}
@@ -310,7 +311,10 @@ footer p{font-family:var(--f-caps);letter-spacing:.24em;font-size:18px;color:var
     <img class="deco ramo-v" src="img/ramo-vertical.webp" alt="">
     <div class="titulo reveal">Código de vestimenta</div>
     <div class="sub reveal" style="margin-top:10px">Semi formal</div>
-    <img class="pareja-v reveal" src="img/pareja-vestimenta.webp" alt="Ilustración de vestimenta semi formal">
+    <div class="parejas-v reveal">
+      <img src="img/pareja-vestimenta.webp" alt="Ilustración de pareja con vestimenta semi formal en tonos claros">
+      <img src="img/pareja-elegante.webp" alt="Ilustración de pareja con vestimenta semi formal elegante en azul">
+    </div>
     <div class="paleta reveal" aria-label="Colores de la boda">
       <i style="background:#f2b99a"></i><i style="background:#a9c9e6"></i><i style="background:#8fa58a"></i><i style="background:#fbe3d4"></i>
     </div>
