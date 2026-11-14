@@ -213,13 +213,49 @@ async function cargar(params = {}){
       if (r.error === 'clave') { salir(); $('avisoEntrar').textContent = 'Clave incorrecta.'; $('avisoEntrar').hidden = false; }
       return false;
     }
-    invitados = r.invitados || []; respuestas = r.respuestas || [];
+    invitados = leerInvitados(r); respuestas = leerRespuestas(r);
     $('entrar').hidden = true; $('datos').hidden = false;
     pintar(); return true;
   } catch (e) {
     toast('No se pudo conectar. Revisa tu internet.');
     return false;
   }
+}
+
+/* ===== Lectura tolerante de la hoja =====
+   Los datos se guardan siempre en el mismo orden de columnas:
+   Invitados:  id | familia | puestos | creado
+   Respuestas: fecha | id | familia | puestos | asistira | mensaje
+   Si la fila de títulos de la hoja no coincide, se leen por posición y por tipo de dato. */
+const esFecha = v => v instanceof Date || (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v));
+const esNum = v => typeof v === 'number' || /^\s*\d{1,3}\s*$/.test(String(v ?? ''));
+const esTexto = v => typeof v === 'string' && v.trim() !== '' && !esFecha(v);
+const esTitulo = v => /^(id|fecha|familia|nombre)$/i.test(String(v ?? '').trim());
+function leerInvitados(r){
+  if (Array.isArray(r.inv)) return r.inv.filter(f => f[0] !== '' && !esTitulo(f[0]))
+    .map(f => ({ id: String(f[0]), familia: String(f[1] ?? ''), puestos: +f[2] || 1, creado: f[3] }));
+  return (r.invitados || []).map(o => {
+    if (esTexto(o.familia) && esNum(o.puestos)) return { ...o, id: String(o.id), puestos: +o.puestos };
+    const v = Object.values(o);
+    if (v.length >= 3 && esTexto(v[1]) && esNum(v[2])) return { id: String(v[0]), familia: v[1], puestos: +v[2], creado: v[3] };
+    const id = String(o.id ?? v[0]);
+    return { id,
+      familia: v.find(x => esTexto(x) && String(x) !== id && !esNum(x)) || '',
+      puestos: +v.find(x => esNum(x) && String(x) !== id) || 1,
+      creado: v.find(esFecha) };
+  }).filter(i => i.id && i.familia && !esTitulo(i.id));
+}
+function leerRespuestas(r){
+  if (Array.isArray(r.resp)) return r.resp.filter(f => esFecha(f[0]) || f[4])
+    .map(f => ({ fecha: f[0], id: String(f[1] ?? ''), familia: String(f[2] ?? ''), puestos: +f[3] || '', asistira: f[4], mensaje: String(f[5] ?? '') }));
+  return (r.respuestas || []).map(o => {
+    if (/^(Sí|Si|No)$/i.test(String(o.asistira ?? '')) && esFecha(o.fecha)) return { ...o, id: String(o.id ?? ''), mensaje: String(o.mensaje ?? '') };
+    const v = Object.values(o);
+    if (v.length >= 5 && esFecha(v[0]) && /^(Sí|Si|No)$/i.test(String(v[4]))) return { fecha: v[0], id: String(v[1] ?? ''), familia: String(v[2] ?? ''), puestos: v[3], asistira: v[4], mensaje: String(v[5] ?? '') };
+    const asis = v.find(x => /^(Sí|Si|No)$/i.test(String(x)));
+    return { fecha: v.find(esFecha), id: String(o.id ?? ''), familia: String(o.familia ?? ''), asistira: asis,
+      mensaje: String(v.filter(x => esTexto(x) && x !== asis && x !== o.familia && x !== o.id).pop() ?? '') };
+  }).filter(r => r.asistira);
 }
 
 /* ===== Enlace personal de cada invitado ===== */
@@ -237,12 +273,12 @@ function textoWhatsApp(i){
 /* ===== Última respuesta de cada invitado ===== */
 function estadoDe(i){
   const suyas = respuestas.filter(r => (r.id && String(r.id) === String(i.id)) ||
-    (!r.id && String(r.familia).trim().toLowerCase() === i.familia.trim().toLowerCase()));
+    (!r.id && String(r.familia || '').trim().toLowerCase() === String(i.familia || '').trim().toLowerCase()));
   suyas.sort((a,b) => new Date(a.fecha) - new Date(b.fecha));
   return suyas[suyas.length - 1] || null;
 }
-const asiste = r => r && (r.asistira === 'Sí' || r.asistira === 'si');
-const noAsiste = r => r && (r.asistira === 'No' || r.asistira === 'no');
+const asiste = r => r && /^(sí|si)$/i.test(String(r.asistira || ''));
+const noAsiste = r => r && /^no$/i.test(String(r.asistira || ''));
 
 function pintar(){
   const filas = invitados.map(i => ({ i, r: estadoDe(i) }));
@@ -255,7 +291,7 @@ function pintar(){
   const q = $('buscar').value.trim().toLowerCase();
   const visibles = filas.filter(f =>
     (filtro === 'todos' || (filtro === 'si' && asiste(f.r)) || (filtro === 'no' && noAsiste(f.r)) || (filtro === 'pend' && !f.r)) &&
-    (!q || f.i.familia.toLowerCase().includes(q)));
+    (!q || String(f.i.familia || '').toLowerCase().includes(q)));
 
   const lista = $('lista'); lista.innerHTML = '';
   if (!invitados.length) lista.innerHTML = '<p class="vacio">Aún no hay invitados. Agrega el primero arriba.</p>';
